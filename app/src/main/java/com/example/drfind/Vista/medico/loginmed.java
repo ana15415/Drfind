@@ -64,12 +64,30 @@ public class loginmed extends AppCompatActivity implements View.OnClickListener 
             case R.id.btnloginmed:
                 if(usuariomed.getText().toString().isEmpty()||passmed.getText().toString().isEmpty()){
                     resulmed.setText("uno o mas campos estan vacios");
+                }else {if(mantendamed.isChecked()){
+                    medceditor.putString(getString(R.string.checkBoxusermed),"True");
+                    medceditor.commit();
+                    String name=usuariomed.getText().toString();
+                    medceditor.putString(getString(R.string.edtusuariomed),name);
+                    medceditor.commit();
+                    String password=passmed.getText().toString();
+                    medceditor.putString(getString(R.string.edtpassmed),password);
+                    medceditor.commit();
+
                 }else {
+                    medceditor.putString(getString(R.string.checkBoxusermed),"False");
+                    medceditor.commit();
+
+                    medceditor.putString(getString(R.string.edtusuariomed),"");
+                    medceditor.commit();
+
+                    medceditor.putString(getString(R.string.edtpassmed),"");
+                    medceditor.commit();
+                }
                     username=usuariomed.getText().toString();
                     password=passmed.getText().toString();
                     CheckLogin checkLogin=new CheckLogin();
                     checkLogin.execute("");
-
                 }
                 break;
             case R.id.btnregismed:
@@ -107,10 +125,11 @@ public class loginmed extends AppCompatActivity implements View.OnClickListener 
                     if(resultSet.next()){
                         z="Inicio exitoso";
                         isSuccess=true;
-                        Intent f = new Intent(loginmed.this, menumedico.class);
-                        startActivity(f);
+                        Intent i = new Intent(loginmed.this, menumedico.class);
+                        i.putExtra("usume",username.toString());
+                        startActivity(i);
                     }else {
-                        z="Inicio invalido";
+                        z="Usuario o contraseña incorrectos";
                         isSuccess=false;
                         Intent m = new Intent(loginmed.this, loginmed.class);
                         startActivity(m);
