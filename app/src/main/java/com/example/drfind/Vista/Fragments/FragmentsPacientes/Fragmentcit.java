@@ -30,7 +30,8 @@ class Fragmentcit extends Fragment {
         Bundle userRec = getArguments();
         String users=userRec.getString("usuarito");
         String fechci=userRec.getString("fechaci");
-        adaptadorcitapac = new Adaptadorsacarcita(cit.sacarcitamodeloList(users,fechci));
+        String usua=userRec.getString("usuariopaci");
+        adaptadorcitapac = new Adaptadorsacarcita(cit.sacarcitamodeloList(users,fechci,usua));
         recyclerViewcitapac.setAdapter(adaptadorcitapac);
         return view;
     }

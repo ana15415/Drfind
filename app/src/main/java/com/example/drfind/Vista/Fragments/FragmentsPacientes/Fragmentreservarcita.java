@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,24 +42,29 @@ public class Fragmentreservarcita extends Fragment  {
         recyclerViewcitapac = view.findViewById(R.id.reciclerreservacita);
         recyclerViewcitapac.setLayoutManager(new LinearLayoutManager(getContext()));
         username=(TextView)view.findViewById(R.id.txtusernameci);
+        userpacname=(TextView)view.findViewById(R.id.txtpacnameci);
         fechacita=(EditText)view.findViewById(R.id.edtfechacita);
         Bundle bundle=this.getArguments();
         String bu= bundle.getString("usuario");
-        //String us=bundle.getString("ususu");
-        //userpacname.setText(us);
+        String us=bundle.getString("usuariopaciente");
+        userpacname.setText(us);
         username.setText(bu);
         context=view.getContext();
         btnhorasdispo=(Button)view.findViewById(R.id.btnhorasdisp);
         btnhorasdispo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Pacientes cit = new Pacientes();
-                Bundle userRec = getArguments();
-                String users=userRec.getString("usuarito",username.getText().toString());
-                String fechci=userRec.getString("fechaci",fechacita.getText().toString());
-                //String userpac=userRec.getString("ususi",userpacname.getText().toString());
-                adaptadorcitapac = new Adaptadorsacarcita(cit.sacarcitamodeloList(users,fechci));
-                recyclerViewcitapac.setAdapter(adaptadorcitapac);
+                if(fechacita.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Elija una fecha", Toast.LENGTH_SHORT).show();;
+                }else{
+                    Pacientes cit = new Pacientes();
+                    Bundle userRec = getArguments();
+                    String users=userRec.getString("usuarito",username.getText().toString());
+                    String fechci=userRec.getString("fechaci",fechacita.getText().toString());
+                    String userpac=userRec.getString("usuariopaci",userpacname.getText().toString());
+                    adaptadorcitapac = new Adaptadorsacarcita(cit.sacarcitamodeloList(users,fechci,userpac));
+                    recyclerViewcitapac.setAdapter(adaptadorcitapac);
+                }
             }
         });
 

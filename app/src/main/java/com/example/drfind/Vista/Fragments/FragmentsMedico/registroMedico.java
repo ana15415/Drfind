@@ -34,7 +34,7 @@ public class registroMedico extends Fragment implements View.OnClickListener{
     Spinner listespecialidad;
     EditText nombremedico,apamedico,amamedico,usuamedico,contramedico,emailmedico,colegiamed,telefomed,fechanacimientomed;
     TextView resultado;
-    ArrayList<Integer> listaespecialidades= new ArrayList<>();
+    ArrayList<String> listaespecialidades= new ArrayList<>();
 
     Calendar C=Calendar.getInstance();
     int mmesme=C.get(Calendar.MONTH);
@@ -83,7 +83,7 @@ public class registroMedico extends Fragment implements View.OnClickListener{
                     while (ob.next()) {
                         String nombre = ob.getString("usuariomed");
                         if(nombre!=null){
-                            usuamedico.setError("usuario ya usado");
+                            usuamedico.setError("este usuario ya existe");
                         }
                     }
                 } catch (SQLException e) {
@@ -124,16 +124,16 @@ public class registroMedico extends Fragment implements View.OnClickListener{
     }
     public void lista() {
         conexion db = new conexion();
-        listaespecialidades = new ArrayList<Integer>();
+        listaespecialidades = new ArrayList<String>();
         try {
             PreparedStatement ed = db.conexionbd().prepareStatement("spinnerespecialidad");
             ResultSet ob = ed.executeQuery();
 
             while (ob.next()) {
-                Integer nombre = ob.getInt("idespecialidad");
+                String nombre = ob.getString("nombreespecialidad");
                 listaespecialidades.add(nombre);
             }
-            Integer[] Array = listaespecialidades.toArray(new Integer[0]);
+            String[] Array = listaespecialidades.toArray(new String[0]);
             ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listaespecialidades);
             listespecialidad.setAdapter(adapter);
 

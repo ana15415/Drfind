@@ -34,13 +34,10 @@ public class ListaMedicosfragment extends Fragment  {
         recyclerViewMedico.setLayoutManager(new LinearLayoutManager(getContext()));
         Medicos medico = new Medicos();
         Bundle datosRecuperados = getArguments();
-        int id=datosRecuperados.getInt("id");
-        adaptadorMedico = new Adaptadorlistamedico(medico.mostrarlistmedi(id));
+        String id=datosRecuperados.getString("id");
+        String usupac=datosRecuperados.getString("usus");
+        adaptadorMedico = new Adaptadorlistamedico(medico.mostrarlistmedi(id,usupac));
         recyclerViewMedico.setAdapter(adaptadorMedico);
-        da=getActivity().getIntent().getExtras();
-        String datos=da.getString("usus");
-        usupa=(TextView)view.findViewById(R.id.textusupaci);
-        usupa.setText(datos);
         return view;
     }
 
