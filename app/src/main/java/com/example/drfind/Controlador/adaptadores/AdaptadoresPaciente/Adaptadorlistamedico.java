@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,18 +21,23 @@ import java.util.List;
 
 public class Adaptadorlistamedico extends RecyclerView.Adapter<Adaptadorlistamedico.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView medico,especialidad,telefonomed,usuariomed;
+        private TextView mediconom,medicoape,usuariomed,usuariopaciente,rat;
         Button btndetalle;
+        RatingBar ratver;
         Context context;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context=itemView.getContext();
-            medico=(TextView)itemView.findViewById(R.id.nombremedtxt);
-            especialidad=(TextView)itemView.findViewById(R.id.especialidadtxt);
-            telefonomed=(TextView)itemView.findViewById(R.id.telefonomedtxt);
+            mediconom=(TextView)itemView.findViewById(R.id.nombremedtxt);
+            medicoape=(TextView)itemView.findViewById(R.id.apellidostext);
             usuariomed=(TextView)itemView.findViewById(R.id.usuariomedtxt);
+            usuariopaciente=(TextView)itemView.findViewById(R.id.usuariopactext);
+            ratver=(RatingBar)itemView.findViewById(R.id.ratingmedico);
             btndetalle=(Button)itemView.findViewById(R.id.btndetalle);
+            rat=(TextView) itemView.findViewById(R.id.ratin);
+            //ratver.setRating(Float.valueOf(rat.getText().toString()));
         }
+
         public  void setOnClickListeners(){btndetalle.setOnClickListener(this);
         }
 
@@ -39,6 +45,7 @@ public class Adaptadorlistamedico extends RecyclerView.Adapter<Adaptadorlistamed
         public void onClick(View view) {
             Bundle datosmedEnviar = new Bundle();
             datosmedEnviar.putString("user",usuariomed.getText().toString());
+            datosmedEnviar.putString("usupac",usuariopaciente.getText().toString());
             AppCompatActivity activity=(AppCompatActivity)view.getContext();
             Fragment fragment=new detallemedico();
             fragment.setArguments(datosmedEnviar);
@@ -61,10 +68,11 @@ public class Adaptadorlistamedico extends RecyclerView.Adapter<Adaptadorlistamed
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.especialidad.setText(medicolista.get(position).getEspecialidad());
-        holder.medico.setText(medicolista.get(position).getNombremedi());
-        holder.telefonomed.setText(medicolista.get(position).getTelefonomedi());
+        holder.mediconom.setText(medicolista.get(position).getNombremedi());
+        holder.medicoape.setText(medicolista.get(position).getApellidosmedi());
         holder.usuariomed.setText(medicolista.get(position).getUsuariomed());
+        holder.usuariopaciente.setText(medicolista.get(position).getUsuariopac());
+        holder.rat.setText(String.valueOf(medicolista.get(position).getRatin()));
         holder.setOnClickListeners();
     }
 
