@@ -1,24 +1,25 @@
 package com.example.drfind.Controlador.adaptadores.AdaptadoresPaciente;
 
 public class medicodetallemodelo {
-    private String  especialidad, nombremedi, telefonomedi,e_mailmed,usuariomed;
+    private String  usuariomed, nombremedi, apellidosmed,telefonomed,e_mailmed,usuariopaci;
     public medicodetallemodelo(){
 
     }
-    public medicodetallemodelo(String especialidad, String nombremedi,  String telefonomedi, String e_mailmed, String usuariomed){
-        this.nombremedi=nombremedi;
-        this.especialidad=especialidad;
-        this.telefonomedi=telefonomedi;
-        this.e_mailmed=e_mailmed;
+    public medicodetallemodelo(String usuariomed, String nombremedi, String apellidosmed, String telefonomed, String e_mailmed, String usuariopaci){
         this.usuariomed=usuariomed;
+        this.nombremedi=nombremedi;
+        this.apellidosmed=apellidosmed;
+        this.telefonomed=telefonomed;
+        this.e_mailmed=e_mailmed;
+        this.usuariopaci=usuariopaci;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
+    public String getUsuariomed() {
+        return usuariomed;
     }
 
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public void setUsuariomed(String usuariomed) {
+        this.usuariomed = usuariomed;
     }
 
     public String getNombremedi() {
@@ -29,12 +30,20 @@ public class medicodetallemodelo {
         this.nombremedi = nombremedi;
     }
 
-    public String getTelefonomedi() {
-        return telefonomedi;
+    public String getApellidosmed() {
+        return apellidosmed;
     }
 
-    public void setTelefonomedi(String telefonomedi) {
-        this.telefonomedi = telefonomedi;
+    public void setApellidosmed(String apellidosmed) {
+        this.apellidosmed = apellidosmed;
+    }
+
+    public String getTelefonomed() {
+        return telefonomed;
+    }
+
+    public void setTelefonomed(String telefonomed) {
+        this.telefonomed = telefonomed;
     }
 
     public String getE_mailmed() {
@@ -45,11 +54,11 @@ public class medicodetallemodelo {
         this.e_mailmed = e_mailmed;
     }
 
-    public String getUsuariomed() {
-        return usuariomed;
+    public String getUsuariopaci() {
+        return usuariopaci;
     }
 
-    public void setUsuariomed(String usuariomed) {
-        this.usuariomed = usuariomed;
+    public void setUsuariopaci(String usuariopaci) {
+        this.usuariopaci = usuariopaci;
     }
 }
