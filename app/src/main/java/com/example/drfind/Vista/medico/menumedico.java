@@ -10,19 +10,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.drfind.Vista.Fragments.FragmentsMedico.CitasmedicoFragment;
-import com.example.drfind.Vista.Fragments.FragmentsMedico.IniciomedicoFragment;
 import com.example.drfind.R;
+import com.example.drfind.Vista.Fragments.FragmentsMedico.CitasmedicoFragment;
+import com.example.drfind.Vista.Fragments.FragmentsMedico.ComentariosFragment;
+import com.example.drfind.Vista.Fragments.FragmentsMedico.IniciomedicoFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class menumedico extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     Toolbar toolbar;
-    TextView nomu;
+    TextView usume;
+    Bundle usu;
     NavigationView navigationView;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -40,9 +43,18 @@ public class menumedico extends AppCompatActivity implements NavigationView.OnNa
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
 
+        usu=getIntent().getExtras();
+        String datos=usu.getString("usume");
+        usume=(TextView)findViewById(R.id.usumedi);
+        usume.setText(datos);
+
+        Bundle datosAEnviar = new Bundle();
+        datosAEnviar.putString("usuarme",usume.getText().toString());
+        Fragment fragmentime=new IniciomedicoFragment();
+        fragmentime.setArguments(datosAEnviar);
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container, new IniciomedicoFragment());
+        fragmentTransaction.add(R.id.container, fragmentime);
         fragmentTransaction.commit();
 
     }
@@ -51,19 +63,35 @@ public class menumedico extends AppCompatActivity implements NavigationView.OnNa
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
         if(item.getItemId()==R.id.inicio){
+            Bundle datosAEnviar = new Bundle();
+            datosAEnviar.putString("usuarme",usume.getText().toString());
+            Fragment fragmentis=new IniciomedicoFragment();
+            fragmentis.setArguments(datosAEnviar);
             fragmentManager=getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, new IniciomedicoFragment());
+            fragmentTransaction.replace(R.id.container, fragmentis);
             fragmentTransaction.commit();
         }
         if(item.getItemId()==R.id.citas){
-
+            Bundle datosAEnviar = new Bundle();
+            datosAEnviar.putString("usuarme",usume.getText().toString());
+            Fragment fragmentis=new CitasmedicoFragment();
+            fragmentis.setArguments(datosAEnviar);
             fragmentManager=getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, new CitasmedicoFragment());
+            fragmentTransaction.replace(R.id.container, fragmentis);
             fragmentTransaction.commit();
         }
-
+        if(item.getItemId()==R.id.comentarios){
+            Bundle datosAEnviar = new Bundle();
+            datosAEnviar.putString("usuarme",usume.getText().toString());
+            Fragment fragmentis=new ComentariosFragment();
+            fragmentis.setArguments(datosAEnviar);
+            fragmentManager=getSupportFragmentManager();
+            fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragmentis);
+            fragmentTransaction.commit();
+        }
         return false;
     }
 }
