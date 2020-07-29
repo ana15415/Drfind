@@ -1,17 +1,27 @@
 package com.example.drfind.Controlador.adaptadores.AdaptadoresPaciente;
 
 public class mostrarcitmodelo {
-    private String nombremed,usuariomed,horacita,fechacita,usuariopa;
+    private String nombreepecialidad, nombremed,usuariomed,horacita,fechacita,usuariopa;
     public mostrarcitmodelo(){
 
     }
-    public mostrarcitmodelo(String nombremed,String usuariomed,String horacita,String fechacita,String usuariopa){
+    public mostrarcitmodelo(String nombreepecialidad,String nombremed,String usuariomed,String horacita,String fechacita,String usuariopa){
+        this.nombreepecialidad=nombreepecialidad;
         this.nombremed=nombremed;
         this.usuariomed=usuariomed;
         this.horacita=horacita;
         this.fechacita=fechacita;
         this.usuariopa=usuariopa;
     }
+
+    public String getNombreepecialidad() {
+        return nombreepecialidad;
+    }
+
+    public void setNombreepecialidad(String nombreepecialidad) {
+        this.nombreepecialidad = nombreepecialidad;
+    }
+
     public String getNombremed() {
         return nombremed;
     }
@@ -52,3 +62,4 @@ public class mostrarcitmodelo {
         this.usuariopa = usuariopa;
     }
 }
+
