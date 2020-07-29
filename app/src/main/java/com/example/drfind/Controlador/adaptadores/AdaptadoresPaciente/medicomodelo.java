@@ -1,23 +1,17 @@
 package com.example.drfind.Controlador.adaptadores.AdaptadoresPaciente;
 
 public class medicomodelo {
-    private String  especialidad, nombremedi, telefonomedi,usuariomed;
+    private String   nombremedi, apellidosmedi,usuariomed,usuariopac;
+    Float ratin;
     public medicomodelo(){
 
     }
-    public medicomodelo(String especialidad, String nombremedi,  String telefonomedi, String usuariomed){
+    public medicomodelo(String nombremedi,  String apellidosmedi, String usuariomed,String usuariopac, Float ratin){
         this.nombremedi=nombremedi;
-        this.especialidad=especialidad;
-        this.telefonomedi=telefonomedi;
+        this.apellidosmedi=apellidosmedi;
         this.usuariomed=usuariomed;
-    }
-
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+        this.usuariopac=usuariopac;
+        this.ratin=ratin;
     }
 
     public String getNombremedi() {
@@ -28,12 +22,12 @@ public class medicomodelo {
         this.nombremedi = nombremedi;
     }
 
-    public String getTelefonomedi() {
-        return telefonomedi;
+    public String getApellidosmedi() {
+        return apellidosmedi;
     }
 
-    public void setTelefonomedi(String telefonomedi) {
-        this.telefonomedi = telefonomedi;
+    public void setApellidosmedi(String apellidosmedi) {
+        this.apellidosmedi = apellidosmedi;
     }
 
     public String getUsuariomed() {
@@ -42,5 +36,21 @@ public class medicomodelo {
 
     public void setUsuariomed(String usuariomed) {
         this.usuariomed = usuariomed;
+    }
+
+    public String getUsuariopac() {
+        return usuariopac;
+    }
+
+    public void setUsuariopac(String usuariopac) {
+        this.usuariopac = usuariopac;
+    }
+
+    public Float getRatin() {
+        return ratin;
+    }
+
+    public void setRatin(Float ratin) {
+        this.ratin = ratin;
     }
 }
