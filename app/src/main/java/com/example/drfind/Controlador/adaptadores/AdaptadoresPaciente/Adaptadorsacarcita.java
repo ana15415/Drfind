@@ -1,6 +1,7 @@
 package com.example.drfind.Controlador.adaptadores.AdaptadoresPaciente;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,26 +9,30 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drfind.Controlador.Pacientes;
 import com.example.drfind.R;
+import com.example.drfind.Vista.Fragments.FragmentsPacientes.CitasPacienteFragment;
 
 import java.util.List;
 
 public class Adaptadorsacarcita extends RecyclerView.Adapter<Adaptadorsacarcita.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView horacita,usuamed,fechacita,id;
+        TextView id,usuamed,horacita,fechacita,usuapac;
         Button buticit;
         Context context;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            horacita = (TextView) itemView.findViewById(R.id.txthoracita);
-            usuamed = (TextView)itemView.findViewById(R.id.txtusuariomed);
-            fechacita=(TextView)itemView.findViewById(R.id.txtfechacita);
             id=(TextView)itemView.findViewById(R.id.txtidcita);
+            usuamed = (TextView)itemView.findViewById(R.id.txtusuariomed);
+            horacita = (TextView) itemView.findViewById(R.id.txthoracita);
+            fechacita=(TextView)itemView.findViewById(R.id.txtfechacita);
+            usuapac=(TextView)itemView.findViewById(R.id.txtusuariopac);
             buticit=(Button)itemView.findViewById(R.id.btnhoritacit);
         }
         public void setOnClickLi(){
@@ -37,8 +42,14 @@ public class Adaptadorsacarcita extends RecyclerView.Adapter<Adaptadorsacarcita.
         @Override
         public void onClick(View view) {
             Pacientes agecit =new Pacientes();
-            agecit.agregarcita(Integer.parseInt(id.getText().toString()),fechacita.getText().toString(),
-                    horacita.getText().toString(),usuamed.getText().toString());
+            agecit.agregarcita(Integer.parseInt(id.getText().toString()),usuamed.getText().toString(),horacita.getText().toString(),
+                    fechacita.getText().toString(),usuapac.getText().toString());
+            Bundle datosmedEnviar = new Bundle();
+            datosmedEnviar.putString("usuar",usuapac.getText().toString());
+            AppCompatActivity activity=(AppCompatActivity)view.getContext();
+            Fragment fragment=new CitasPacienteFragment();
+            fragment.setArguments(datosmedEnviar);
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
         }
         }
 
@@ -55,10 +66,11 @@ public class Adaptadorsacarcita extends RecyclerView.Adapter<Adaptadorsacarcita.
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.id.setText(sacarcitamodeloList.get(position).getId());
         holder.usuamed.setText(sacarcitamodeloList.get(position).getUsuarioname());
         holder.horacita.setText(sacarcitamodeloList.get(position).getHoracita());
         holder.fechacita.setText(sacarcitamodeloList.get(position).getFechacita());
-        holder.id.setText(sacarcitamodeloList.get(position).getId());
+        holder.usuapac.setText(sacarcitamodeloList.get(position).getUsuariopac());
         holder.setOnClickLi();
     }
     @Override
