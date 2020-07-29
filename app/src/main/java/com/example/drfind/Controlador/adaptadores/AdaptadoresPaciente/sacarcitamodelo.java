@@ -1,16 +1,24 @@
 package com.example.drfind.Controlador.adaptadores.AdaptadoresPaciente;
 
 public class sacarcitamodelo {
-    String usuarioname,horacita,fechacita,id;
+    String id, usuarioname,horacita,fechacita,usuariopac;
     public sacarcitamodelo(){
     }
-    public sacarcitamodelo(String usuarioname,String horacita,String fechacita,String id){
-        this.horacita=horacita;
-        this.usuarioname=usuarioname;
-        this.fechacita=fechacita;
+    public sacarcitamodelo(String id, String usuarioname,String horacita,String fechacita, String usuariopac){
         this.id=id;
+        this.usuarioname=usuarioname;
+        this.horacita=horacita;
+
+        this.fechacita=fechacita;
+        this.usuariopac=usuariopac;
+    }
+    public String getId() {
+        return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getUsuarioname() {
         return usuarioname;
     }
@@ -35,11 +43,11 @@ public class sacarcitamodelo {
         this.fechacita = fechacita;
     }
 
-    public String getId() {
-        return id;
+    public String getUsuariopac() {
+        return usuariopac;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsuariopac(String usuariopac) {
+        this.usuariopac = usuariopac;
     }
 }
