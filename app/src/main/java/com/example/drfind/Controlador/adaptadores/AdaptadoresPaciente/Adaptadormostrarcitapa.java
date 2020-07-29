@@ -21,12 +21,13 @@ import java.util.List;
 
 public class Adaptadormostrarcitapa extends RecyclerView.Adapter<Adaptadormostrarcitapa.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView nombreme,usuame,fechaci,horaci,usuapa;
+        private TextView nombreespeci,nombreme,usuame,fechaci,horaci,usuapa;
         Button eliminarcitapa;
         Context context;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            nombreespeci=(TextView)itemView.findViewById(R.id.nombrespe);
             nombreme=(TextView)itemView.findViewById(R.id.nombremedci);
             usuame=(TextView)itemView.findViewById(R.id.usuamedico);
             horaci=(TextView)itemView.findViewById(R.id.horacit);
@@ -64,6 +65,7 @@ public class Adaptadormostrarcitapa extends RecyclerView.Adapter<Adaptadormostra
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.nombreespeci.setText(mostrarcitmodeloList.get(position).getNombreepecialidad());
         holder.nombreme.setText(mostrarcitmodeloList.get(position).getNombremed());
         holder.usuame.setText(mostrarcitmodeloList.get(position).getUsuariomed());
         holder.horaci.setText(mostrarcitmodeloList.get(position).getHoracita());
