@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.drfind.R;
 import com.example.drfind.Vista.Fragments.FragmentsPacientes.CitasPacienteFragment;
 import com.example.drfind.Vista.Fragments.FragmentsPacientes.InicioPacienteFragment;
-import com.example.drfind.Vista.Fragments.FragmentsPacientes.UbicacionFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class menupaciente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -49,15 +48,13 @@ public class menupaciente extends AppCompatActivity implements NavigationView.On
         juju.setText(datos);
 
         Bundle datosAEnviar = new Bundle();
-        datosAEnviar.putString("usu",juju.getText().toString());
+        datosAEnviar.putString("usuar",juju.getText().toString());
         Fragment fragmenti=new InicioPacienteFragment();
         fragmenti.setArguments(datosAEnviar);
         fragmentManager=getSupportFragmentManager();
         fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.container, fragmenti);
         fragmentTransaction.commit();
-
-
     }
 
     @Override
@@ -81,12 +78,6 @@ public class menupaciente extends AppCompatActivity implements NavigationView.On
             fragmentManager=getSupportFragmentManager();
             fragmentTransaction=fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container, fragment);
-            fragmentTransaction.commit();
-        }
-        if(item.getItemId()==R.id.ubicacion){
-            fragmentManager=getSupportFragmentManager();
-            fragmentTransaction=fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, new UbicacionFragment());
             fragmentTransaction.commit();
         }
 
