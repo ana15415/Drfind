@@ -2,6 +2,7 @@ package com.example.drfind.Vista.paciente;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -9,10 +10,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.drfind.R;
+import com.example.drfind.modelo.conexion;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class loginpac extends AppCompatActivity implements View.OnClickListener {
     Button loginpaciente, registropaciente;
@@ -21,6 +27,7 @@ public class loginpac extends AppCompatActivity implements View.OnClickListener 
     TextView relutlog;
     private SharedPreferences preferencespac;
     private SharedPreferences.Editor paceditor;
+    String usernamepac, passwordmpac;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +72,7 @@ public void SharedPreference(){
                         String password=passpac.getText().toString();
                         paceditor.putString(getString(R.string.edtpasspaci),password);
                         paceditor.commit();
-                        Intent i = new Intent(loginpac.this, menupaciente.class);
-                        i.putExtra("usu",usuariopac.getText().toString());
-                        startActivity(i);
+
                     }else {
                         paceditor.putString(getString(R.string.checkBoxuserpac),"False");
                         paceditor.commit();
@@ -78,6 +83,11 @@ public void SharedPreference(){
                         paceditor.putString(getString(R.string.edtpasspaci),"");
                         paceditor.commit();
                     }
+                    usernamepac=usuariopac.getText().toString();
+                    passwordmpac=passpac.getText().toString();
+                    CheckLogin checkLogin=new CheckLogin();
+                    checkLogin.execute("");
+
                 }
 
                 break;
@@ -85,6 +95,51 @@ public void SharedPreference(){
                 Intent o = new Intent(this, regispaciente.class);
                 startActivity(o);
                 break;
+        }
+    }
+    public class CheckLogin extends AsyncTask<String,String,String> {
+        String z="";
+        Boolean isSuccess=false;
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(loginpac.this,s,Toast.LENGTH_SHORT).show();
+            if(isSuccess){
+                Toast.makeText(loginpac.this,"Inicio correcto",Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            if(usernamepac.trim().equals("")||passwordmpac.trim().equals(""))
+                z="Ingrese usuario y contraseña";
+            else {
+                conexion db=new conexion();
+                try {
+                    Statement stm=db.conexionbd().createStatement();
+                    ResultSet resultSet=stm.executeQuery("SELECT * FROM Paciente where usuariopac= '"+usernamepac.toString()+"'and contraseñapac='"+passwordmpac.toString()+"'");
+                    if(resultSet.next()){
+                        z="Inicio exitoso";
+                        isSuccess=true;
+                        Intent i = new Intent(loginpac.this, menupaciente.class);
+                        i.putExtra("usu",usernamepac.toString());
+                        startActivity(i);
+                    }else {
+                        z="Usuario o contraseña incorrectos";
+                        isSuccess=false;
+                        Intent m = new Intent(loginpac.this, loginpac.class);
+                        startActivity(m);
+                    }
+                }catch (Exception e){
+                    isSuccess=false;
+                    z=e.getMessage();
+                }
+            }return z;
         }
     }
 }
